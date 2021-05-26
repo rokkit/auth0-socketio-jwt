@@ -3,7 +3,7 @@
  * This is especially if you do not want to use cookies in a single page application.
  */
 
-/// <reference types="socket.io" />
+import { Socket, Server } from 'socket.io'
 
 declare module 'socketio-jwt' {
 
@@ -23,7 +23,7 @@ declare module 'socketio-jwt' {
   }
 
   interface ISocketIOMiddleware {
-    (socket: SocketIO.Socket, fn: (err?: any) => void): void;
+    (socket: Socket, fn: (err?: any) => void): void;
   }
 
   interface IOptions {
@@ -56,11 +56,11 @@ declare module 'socketio-jwt' {
   }
 
   /**
-   * This is an augmented version of the SocketIO.Server.
+   * This is an augmented version of the Server.
    * It knows the 'authenticated' event and should be extended in future.
-   * @see SocketIO.Server 
+   * @see Server 
    */
-  export interface JWTServer extends SocketIO.Server {
+  export interface JWTServer extends Server {
 
     /**
      * The event gets fired when a new connection is authenticated via JWT.
@@ -68,6 +68,6 @@ declare module 'socketio-jwt' {
      * @param listener A listener that should take one parameter of type Socket
      * @return The default '/' Namespace
      */
-    on(event: ('authenticated' | string), listener: (socket: SocketIO.Socket) => void): SocketIO.Namespace;
+    on(event: ('authenticated' | string), listener: (socket: Socket) => void): any;
   }
 }
